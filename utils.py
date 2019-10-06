@@ -1,3 +1,5 @@
+import os
+
 # 结果定义
 kiss_dict = {
         0:"亲密无间",
@@ -13,7 +15,6 @@ kiss_dict = {
         10:"关系马虎"
 }
 
-
 # 获取名字转换成列表
 def getNameList(name): 
     return list(name)
@@ -22,7 +23,12 @@ def getNameList(name):
 # 获取单个字符unicode对应的笔划数
 def getStroke(c):
     strokes = []
-    with open(r"wxPython_Kiss\assets\strokes.txt", 'r') as fr:
+    # 获取文件路径以程序运行的绝对路径添加
+    # 防止打包后运行时寻找不到文件
+    app_path = os.path.abspath('.')
+    print(os.path.normpath(app_path+'\\assets\\strokes.txt'))
+    file_path = os.path.normpath(app_path+'\\assets\\strokes.txt') 
+    with open(file_path, 'r') as fr:
         for line in fr:
             strokes.append(int(line.strip()))
     unicode_ = ord(c)
